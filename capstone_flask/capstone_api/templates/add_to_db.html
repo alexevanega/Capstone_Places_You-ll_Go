@@ -1,0 +1,53 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<h1 class="text-decoration-underline"> Add to State Database </h1>
+
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        <fieldset>
+            {{ form.state.label }}
+            {{ form.state(class='form-control', placeholder='State') }}
+        </fieldset>
+        <fieldset>
+            {{ form.state_abbr.label }}
+            {{ form.state_abbr(class='form-control', placeholder='State Abbr') }}
+        </fieldset>
+        <fieldset>
+            {{ form.nickname.label }}
+            {{ form.nickname(class='form-control', placeholder='Nickname') }}
+        </fieldset>
+        <fieldset>
+            {{ form.flag.label }}
+            {{ form.flag(class='form-control', placeholder='Flag Image') }}
+        </fieldset>
+        <fieldset>
+            {{ form.capital.label }}
+            {{ form.capital(class='form-control', placeholder='Capital') }}
+        </fieldset>
+        <fieldset>
+            {{ form.population.label }}
+            {{ form.population(class='form-control', placeholder='Population') }}
+        </fieldset>
+        <fieldset>
+            {{ form.timezone.label }}
+            {{ form.timezone(class='form-control', placeholder='Timezone') }}
+        </fieldset>
+        <fieldset>
+            {{ form.season.label }}
+            {{ form.season(class='form-control', placeholder='Season') }}
+        </fieldset>
+        <fieldset>
+            {{ form.largest_city.label }}
+            {{ form.largest_city(class='form-control', placeholder='Largest City') }}
+        </fieldset>
+        <br>
+        <fieldset>
+            {{form.submit(class='btn btn-primary')}}
+        </fieldset>
+     
+</form>
+
+{% endblock content %}

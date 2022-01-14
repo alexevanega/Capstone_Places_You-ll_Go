@@ -1,0 +1,26 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<h1 class="text-decoration-underline"> Add to State Database </h1>
+
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        <fieldset>
+            {{ form.state.label }}
+            {{ form.state(class='form-control', placeholder='State') }}
+        </fieldset>
+        <fieldset>
+            {{ form.activity.label }}
+            {{ form.activity(class='form-control', placeholder='Activity') }}
+        </fieldset>
+        
+        <br>
+        <fieldset>
+            {{form.submit(class='btn btn-primary')}}
+        </fieldset>
+     
+</form>
+
+{% endblock content %}

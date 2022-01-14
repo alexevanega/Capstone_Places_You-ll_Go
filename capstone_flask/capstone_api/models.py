@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
 from secrets import token_hex
 
+from capstone_api.forms import statesForm
+
 
 db = SQLAlchemy()
 
@@ -32,19 +34,34 @@ class User(db.Model, UserMixin):
 
 
 class States(db.Model):
-    state_name = db.Column(db.String(25), primary_key=True)
+    state = db.Column(db.String(25), primary_key=True)
     state_abbr = db.Column(db.String(5))
     nickname = db.Column(db.String(150))
     flag = db.Column(db.String(300))
     capital = db.Column(db.String(150))
-    population = db.Column(db.Integer)
+    population = db.Column(db.String)
     timezone = db.Column(db.String(25))
     largest_city = db.Column(db.String(150))
     season = db.Column(db.String(10))
+    attractions = db.relationship('State_Attractions', backref='States')
+    reasons = db.relationship('Popular_Activities', backref='States')
+
+ 
+    def __init__(self,state,st_ab,nknm,flg,cap,pop,tmzn,lgcy,seasn):
+        self.state = state
+        self.state_abbr = st_ab
+        self.nickname = nknm
+        self.flag = flg
+        self.capital = cap
+        self.population = pop
+        self.timezone = tmzn
+        self.largest_city = lgcy
+        self.season = seasn
+
 
     def to_dict(self):
         return {
-            'name': self.state_name,
+            'name': self.state,
             'abbr': self.state_abbr,
             'nickname': self.nickname,
             'flag': self.flag,
@@ -58,14 +75,44 @@ class States(db.Model):
 
 class State_Attractions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    state_name = db.Column(db.String(25))
+    state_name = db.Column(db.String(25),db.ForeignKey('states.state'),nullable=False)
     attraction = db.Column(db.String(200))
-    att_type = db.Column(db.String(50))
+    att_loc = db.Column(db.String(50))
+
+    
+
+    def __init__(self,state_name,attraction,att_loc):
+        self.state_name = state_name
+        self.attraction = attraction
+        self.att_loc = att_loc
+
+
+    def to_dict(self):
+        return {
+        self.attraction: self.att_loc
+        }
+    
+        
+class Popular_Activities(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    state_name = db.Column(db.String(25),db.ForeignKey('states.state'),nullable=False)
+    activity = db.Column(db.String(300))
+
+ 
+
+    def __init__(self,state,activity):
+        self.state_name = state
+        self.activity = activity
+
+    def to_dict(self):
+        return {
+            self.state_name: self.activity
+        }
 
 
 class visitedStates(db.Model):
     id = db.Column(db.Integer,primary_key=True)
-    state = db.Column(db.String(25), db.ForeignKey('states.state_name'), nullable=False)
+    state_name = db.Column(db.String(25),db.ForeignKey('states.state'),nullable=False)
     user = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
 
     def to_dict(self):
