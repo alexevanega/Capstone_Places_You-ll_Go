@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 export default class Register extends Component {
     constructor(){
@@ -28,22 +28,23 @@ export default class Register extends Component {
         const data = await res.json();
         console.log(data);
         if (data.status === 'success'){
-            return res.redirect('/login');
+            return this.setState({redirect: '/login'});
         }
     }
 
     render() {
         return (
+            this.state.redirect ? <Navigate to='/login' />:
             <>
             <div className='container'>
                 <form onSubmit={(e)=>{this.sendCredentials(e)}}>
                     <div className="form-group">
                         <fieldset>
-                            <label htmlFor="First Name">Username</label>
+                            <label htmlFor="First Name">First Name</label>
                             <input className="form-control" id="firstname" name="firstname" placeholder="First Name" required="" type="text" />
                         </fieldset>
                         <fieldset>
-                            <label htmlFor="Last Name">Username</label>
+                            <label htmlFor="Last Name">Last Name</label>
                             <input className="form-control" id="lastname" name="lastname" placeholder="Last Name" required="" type="text" />
                         </fieldset>
                         <fieldset>
@@ -58,6 +59,7 @@ export default class Register extends Component {
                             <label htmlFor="confirm_password">Confirm Password</label>
                             <input className="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required="" type="password" />
                         </fieldset>
+                        <br/>
                         <input className="btn btn-primary" id="submit" name="submit" type="submit" value="Submit" />
                     </div>
                 </form>

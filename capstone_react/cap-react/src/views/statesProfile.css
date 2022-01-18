@@ -1,0 +1,41 @@
+.rsns {
+    border: 5px inset blue;
+    background-color: white;
+    color: black;
+    padding: 2%;
+}
+
+.rsn div{
+    background-color: inherit;
+    color: black;
+}
+
+.atts {
+    background-color: white;
+    border: 5px inset red;
+    color: black;
+    margin-top: 3%;
+    padding: 2%;
+    width: 50%;
+}
+
+.attract {
+    background-color: inherit;
+    color: black;
+    margin: 2%;
+    text-align: center;
+}
+
+.state {
+    border: 5px inset silver;
+    border-radius: 2%;
+    padding: 2%;
+    margin: 2%;
+}
+
+.flag img{
+    border: 2px solid black;
+}
+
+
+

@@ -89,7 +89,9 @@ class State_Attractions(db.Model):
 
     def to_dict(self):
         return {
-        self.attraction: self.att_loc
+        'att': self.attraction,
+        'state': self.state_name,
+        'loc': self.att_loc
         }
     
         
@@ -106,7 +108,8 @@ class Popular_Activities(db.Model):
 
     def to_dict(self):
         return {
-            self.state_name: self.activity
+            'state': self.state_name,
+            'reason': self.activity
         }
 
 
@@ -117,7 +120,7 @@ class visitedStates(db.Model):
 
     def to_dict(self):
         return {
-            self.state: self.user
+            self.user: self.state_name
         }
 
 

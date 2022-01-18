@@ -6,7 +6,6 @@ class App extends Component {
   /* mandatory */
   mapHandler = (event) => {
     alert(event.target.dataset.name);
-    
   };
 
   /* optional customization of filling per state and calling custom callbacks per state */
@@ -67,8 +66,8 @@ class App extends Component {
             fill: 'inherit'
         },
         "LA": {
-            fill: 'inherit'
-        },
+            fill: 'red'
+           },
         "ME": {
             fill: 'inherit'
         },
@@ -104,7 +103,8 @@ class App extends Component {
             fill: "inherit",     
         },
         "NJ": {
-            fill: "inherit",     
+            fill: "inherit",
+            clickHandler: (event) => console.log('Custom handler for New Jersey', event.target.dataset)     
         },
         "NM": {
             fill: "inherit",     

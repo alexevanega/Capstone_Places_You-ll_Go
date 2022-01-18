@@ -63,26 +63,23 @@ def addAtt():
 @app.route('/API/States')
 def stateAPI():
     states = States.query.order_by(asc(States.state)).all()
-    att = State_Attractions.query.all()
-    rsns = Popular_Activities.query.all()
-    return dict(state_info = [dict(state.to_dict(), attractions=[at.to_dict() for at in att if at.state_name==state.state], reasons=[rsn.activity for rsn in rsns if rsn.state_name==state.state]) for state in states])
+    return jsonify([state.to_dict() for state in states])
+    
 
 @app.route('/API/States/<state>')
 def grabStateAPI(state):
     grabbed = States.query.filter_by(state=state).first()
-    att = State_Attractions.query.filter_by(state_name=state).all()
-    rsns = Popular_Activities.query.filter_by(state_name=state).all()
-    return dict(state = [dict(grabbed.to_dict(),attractions=[at.to_dict() for at in att if at.state_name==grabbed.state], reasons=[rsn.activity for rsn in rsns if rsn.state_name==grabbed.state])])
+    return jsonify([grabbed.to_dict()])
 
-@app.route('/API/States/Attractions')
-def AttAPI():
-    attns = State_Attractions.query.order_by(asc(State_Attractions.state_name)).all()
+@app.route('/API/States/attractions/<state>')
+def AttAPI(state):
+    attns = State_Attractions.query.filter_by(state_name=state).all()
     return jsonify([attn.to_dict() for attn in attns])
 
-@app.route('/API/reasons')
-def ReasonsAPI():
-    reson=Popular_Activities.query.order_by(asc(Popular_Activities.state_name)).all()
-    return jsonify([r.to_dict() for r in reson])
+@app.route('/API/States/reasons/<state>')
+def ReasonsAPI(state):
+    reasons=Popular_Activities.query.filter_by(state_name=state).all()
+    return jsonify([r.to_dict() for r in reasons])
 
 @app.route('/API/States/List')
 def grabStateInfo():

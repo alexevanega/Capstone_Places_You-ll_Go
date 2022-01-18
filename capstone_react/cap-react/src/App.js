@@ -1,27 +1,36 @@
 import React, { Component } from 'react';
 import Navbar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
+import './App.css';
 import WWD from './views/WWD';
 import Map from './views/Map';
+import Profile from './views/profile';
+import States from './views/States';
 import Login from './views/login';
 import Signup from './views/Signup';
+import StatesProfile from './views/statesProfile';
 
 export default class App extends Component {
 
   constructor() {
     super();
-    this.state = {
-      states: ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Conneticut', 'Delaware', 'Florida',
-        'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts',
-        'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
-        'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
-        'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Virginia', 'Vermont', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
-
-      isLoggedIn: false,
-      currentUser: null,
-      hasVisited: []
+    console.log('I was created')
+    const user = localStorage.getItem('app_user');
+    if (user) {
+      this.state = {
+        isLoggedIn: true,
+        currentUser: JSON.parse(user),
+        states: [],
+        visitedStates: []
+      }
+    } else {
+      this.state = {
+        isLoggedIn: false,
+        currentUser: null,
+        states: [],
+        visitedStates: []
+      }
     }
-
   }
 
   logMeIn = (user) => {
@@ -29,25 +38,44 @@ export default class App extends Component {
       isLoggedIn: true,
       currentUser: user
     })
+    localStorage.setItem('app_user', JSON.stringify(user))
   }
 
   logMeOut = () => {
     this.setState({
       isLoggedIn: false,
-      currentUser: null
+      currentUser: {}
     })
+    localStorage.removeItem('app_user');
+  }
+
+  getStatesInfo = async () => {
+    const res = await fetch('http://127.0.0.1:5000/API/States');
+    const data = await res.json();
+    console.log(data)
+    this.setState({
+      states: data
+    })
+  }
+
+  componentDidMount() {
+    console.log('I have mounted')
+    this.getStatesInfo()
   }
 
 
   render() {
+    console.log('I rendered')
     return (
       <div>
-        <Navbar isLoggedIn={this.state.isLoggedIn} currentUser={this.state.currentUser}/>
-        <h1>Oh, The Places You'll Go!</h1>
+        <Navbar isLoggedIn={this.state.isLoggedIn} logMeOut={this.logMeOut} currentUser={this.state.currentUser} />
         <Routes>
-          <Route path='/WWD' element={<WWD />} />
+          <Route path='/' element={<WWD />} />
           <Route path='/Map' element={<Map />} />
-          <Route path='/login' element={<Login logMeIn={this.logMeIn}/>} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/plan' element={<States states={this.state.states} />} />
+          <Route path='/plan/:state' element={<StatesProfile />} /> 
+          <Route path='/login' element={<Login logMeIn={this.logMeIn} />} />
           <Route path='/Signup' element={<Signup />} />
         </Routes>
       </div>
