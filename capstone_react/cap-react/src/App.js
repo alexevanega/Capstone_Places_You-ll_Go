@@ -21,6 +21,7 @@ export default class App extends Component {
         isLoggedIn: true,
         currentUser: JSON.parse(user),
         states: [],
+        Albums: [],
         visitedStates: []
       }
     } else {
@@ -65,13 +66,13 @@ export default class App extends Component {
 
 
   render() {
-    console.log('I rendered')
+    console.log('I rendered: ',this.state.currentUser)
     return (
       <div>
         <Navbar isLoggedIn={this.state.isLoggedIn} logMeOut={this.logMeOut} currentUser={this.state.currentUser} />
         <Routes>
-          <Route path='/' element={<WWD />} />
-          <Route path='/Map' element={<Map />} />
+          <Route path='/' element={<WWD currentUser={this.state.currentUser} />} />
+          <Route path='/Map' element={<Map states={this.state.states} />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/plan' element={<States states={this.state.states} />} />
           <Route path='/plan/:state' element={<StatesProfile />} /> 

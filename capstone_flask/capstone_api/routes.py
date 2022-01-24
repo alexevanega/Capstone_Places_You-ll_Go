@@ -1,14 +1,11 @@
-from re import template
-from sre_parse import State
 from flask.helpers import url_for
-
 from flask.json import jsonify
-from werkzeug.utils import redirect
+from werkzeug.utils import redirect, secure_filename
 from capstone_api import app
 from flask import render_template, request
 from sqlalchemy import asc,desc
-from sqlalchemy.orm import joinedload,with_polymorphic
 
+import os
 from capstone_api import db
 
 from capstone_api.forms import activitesForm, deleteForm, stateAttrForm, statesForm, updateForm
@@ -178,3 +175,21 @@ def deleteActivity():
             db.session.commit()
             return redirect(url_for('deleteActivity'))
     return render_template('add_activity.html', form=act_form)
+
+@app.route('/upload',methods=['POST'])
+def upload():
+    pic = request.files['image']
+    user = request.form['user']
+    album = request.form['album']
+    picname = secure_filename(pic.filename)
+    
+    if os.path.isdir(os.path.join(app.config['UPLOAD_FOLDER'],user,album)):
+        pic.save(os.path.join(app.config['UPLOAD_FOLDER'],user,album,picname))
+    else:
+        os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'],user,album))
+        pic.save(os.path.join(app.config['UPLOAD_FOLDER'],user,album,picname))
+
+    return {
+        'message': 'I Got It'
+    }
+    

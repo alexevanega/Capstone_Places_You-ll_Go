@@ -1,9 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify
+from flask import Blueprint, request, jsonify
 from werkzeug.security import check_password_hash
 
 from capstone_api.models import User
 
-from flask_login import login_user, logout_user,login_required,current_user
 
 auth = Blueprint('authenticate',__name__,template_folder='auth_templates')
 
@@ -64,8 +63,3 @@ def register():
                 }
             )
     return {'status': 'error', 'message': 'Passwords do not match'}
-
-@auth.route('/logout')
-def logOut():
-    logout_user()
-    return redirect(url_for('authenticate.logIn'))

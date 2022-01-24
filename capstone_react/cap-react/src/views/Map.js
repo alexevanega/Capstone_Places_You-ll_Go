@@ -3,168 +3,226 @@ import './map.css'; /* optional for styling like the :hover pseudo-class */
 import USAMap from "react-usa-map";
 
 class App extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+                AL: 'inherit',
+                AK: 'inherit',
+                AZ: 'inherit',
+                AR: 'inherit',
+                CA: 'inherit',
+                CO: 'inherit',
+                CT: 'inherit',
+                DC: 'inherit',
+                DE: 'inherit',
+                FL: 'inherit',
+                GA: 'inherit',
+                HI: 'inherit',
+                ID: 'inherit',
+                IL: 'inherit',
+                IN: 'inherit',
+                IA: 'inherit',
+                KS: 'inherit',
+                KY: 'inherit',
+                LA: 'inherit',
+                ME: 'inherit',
+                MD: 'inherit',
+                MA: 'inherit',
+                MI: 'inherit',
+                MN: 'inherit',
+                MS: 'inherit',
+                MO: 'inherit',
+                MT: 'inherit',
+                NE: 'inherit',
+                NV: 'inherit',
+                NH: 'inherit',
+                NJ: 'inherit',
+                NM: 'inherit',
+                NY: 'inherit',
+                NC: 'inherit',
+                ND: 'inherit',
+                OH: 'inherit',
+                OK: 'inherit',
+                OR: 'inherit',
+                PA: 'inherit',
+                RI: 'inherit',
+                SC: 'inherit',
+                SD: 'inherit',
+                TN: 'inherit',
+                TX: 'inherit',
+                UT: 'inherit',
+                VA: 'inherit',
+                VT: 'inherit',
+                WA: 'inherit',
+                WV: "inherit",
+                WI: "inherit",
+                WY: "inherit",
+        };
+}
+
+
   /* mandatory */
   mapHandler = (event) => {
-    alert(event.target.dataset.name);
+      if (this.state[event.target.dataset.name] === 'inherit') {this.setState({[event.target.dataset.name]: 'red'})}
+      else {this.setState({[event.target.dataset.name]: 'inherit'})};
   };
 
   /* optional customization of filling per state and calling custom callbacks per state */
   statesCustomConfig = () => {
     return {
         "AL": {
-            fill: 'inherit'
+            fill: this.state['AL']
         },
         "AK": {
-            fill: 'inherit'
+            fill: this.state['AK']
         },
         "AZ": {
-            fill: 'inherit'
+            fill: this.state['AZ']
         },
         "AR": {
-            fill: 'inherit'
+            fill: this.state['AR']
         },
         "CA": {
-            fill: 'inherit'
+            fill: this.state['CA']
         },
         "CO": {
-            fill: 'inherit'
+            fill: this.state['CO']
         },
         "CT": {
-            fill: 'inherit'
+            fill: this.state['CT']
         },
         "DC": {
-            fill: 'inherit'
+            fill: this.state['DC']
         },
         "DE": {
-            fill: 'inherit'
+            fill: this.state['DE']
         },
         "FL": {
-            fill: 'inherit'
+            fill: this.state['FL']
         },
         "GA": {
-            fill: 'inherit'
+            fill: this.state['GA']
         },
         "HI": {
-            fill: 'inherit'
+            fill: this.state['HI']
         },
         "ID": {
-            fill: 'inherit'
+            fill: this.state['ID']
         },
         "IL": {
-            fill: 'inherit'
+            fill: this.state['IL']
         },
         "IN": {
-            fill: 'inherit'
+            fill: this.state['IN']
         },
         "IA": {
-            fill: 'inherit'
+            fill: this.state['IA']
         },
         "KS": {
-            fill: 'inherit'
+            fill: this.state['KS']
         },
         "KY": {
-            fill: 'inherit'
+            fill: this.state['KY']
         },
         "LA": {
-            fill: 'red'
+            fill: this.state['LA']
            },
         "ME": {
-            fill: 'inherit'
+            fill: this.state['ME']
         },
         "MD": {
-            fill: 'inherit'
+            fill: this.state['MD']
         },
         "MA": {
-            fill: 'inherit'
+            fill: this.state['MA']
         },
         "MI": {
-            fill: 'inherit'
+            fill: this.state['MI']
         },
         "MN": {
-            fill: 'inherit'
+            fill: this.state['MN']
         },
         "MS": {
-            fill: 'inherit'
+            fill: this.state['MS']
         },
         "MO": {
-            fill: 'inherit'
+            fill: this.state['MO']
         },
         "MT": {
-            fill: 'inherit'
+            fill: this.state['MT']
         },
         "NE": {
-            fill: "inherit",
-            clickHandler: (event) => console.log('Custom handler for NJ', event.target.dataset)
+            fill: this.state['NE']
         },
         "NV": {
-            fill: "inherit",     
+            fill: this.state['NV']     
         },
         "NH": {
-            fill: "inherit",     
+            fill: this.state['NH']     
         },
         "NJ": {
-            fill: "inherit",
-            clickHandler: (event) => console.log('Custom handler for New Jersey', event.target.dataset)     
+            fill: this.state['NJ']     
         },
         "NM": {
-            fill: "inherit",     
+            fill: this.state['NM']    
         },
         "NY": {
-            fill: "inherit",     
+            fill: this.state['NY']     
         },
         "NC": {
-            fill: "inherit",     
+            fill: this.state['NC']     
         },
         "ND": {
-            fill: "inherit",     
+            fill: this.state['ND']     
         },
         "OH": {
-            fill: "inherit",     
+            fill: this.state['OH']     
         },
         "OK": {
-            fill: "inherit",     
+            fill: this.state['OK']     
         },
         "OR": {
-            fill: "inherit",     
+            fill: this.state['OR']     
         },
         "PA": {
-            fill: "inherit",     
+            fill: this.state['PA']     
         },
         "RI": {
-            fill: "inherit",     
+            fill: this.state['RI']     
         },
         "SC": {
-            fill: "inherit",     
+            fill: this.state['SC']     
         },
         "SD": {
-            fill: "inherit",     
+            fill: this.state['SD']     
         },
         "TN": {
-            fill: "inherit",     
+            fill: this.state['TN']     
         },
         "TX": {
-            fill: "inherit",     
+            fill: this.state['TX']     
         },
         "UT": {
-            fill: "inherit",     
+            fill: this.state['UT']     
         },
         "VA": {
-            fill: "inherit",     
+            fill: this.state['VA']     
         },
         "VT": {
-            fill: "inherit",     
+            fill: this.state['VT']     
         },
         "WA": {
-            fill: "inherit",     
+            fill: this.state['WA']     
         },
         "WV": {
-            fill: "inherit",     
+            fill: this.state['WV']     
         },
         "WI": {
-            fill: "inherit",     
+            fill: this.state['WI']     
         },
         "WY": {
-            fill: "inherit",     
+            fill: this.state['WY']     
         },
     };
   };

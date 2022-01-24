@@ -123,4 +123,9 @@ class visitedStates(db.Model):
             self.user: self.state_name
         }
 
+class journalEntries(db.Model):
+    trip = db.Column(db.Text,primary_key=True)
+    title = db.Column(db.Text, nullable=False)
+    entry = db.Column(db.Text,nullable=False)
+    user = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
 

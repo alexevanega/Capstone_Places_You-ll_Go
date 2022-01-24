@@ -1,5 +1,6 @@
 .rsns {
     border: 5px inset blue;
+    border-radius: 2%;
     background-color: white;
     color: black;
     padding: 2%;
@@ -13,6 +14,7 @@
 .atts {
     background-color: white;
     border: 5px inset red;
+    border-radius: 2%;
     color: black;
     margin-top: 3%;
     padding: 2%;

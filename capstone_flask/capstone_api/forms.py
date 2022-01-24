@@ -1,7 +1,5 @@
-from enum import Flag
-from re import S
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, SubmitField
 
 
 class statesForm(FlaskForm):

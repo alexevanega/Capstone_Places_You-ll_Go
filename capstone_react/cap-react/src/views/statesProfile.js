@@ -55,7 +55,7 @@ class StatesProfile extends Component {
         console.log(this.state)
         return (
             <div className='d-flex flex-column mb-3'>
-                <div className='d-flex justify-content-evenly align-items-start'>
+                <div className='d-flex justify-content-evenly'>
                     <StateCard state={this.state.state_info} />
                     <div className='atts d-flex flex-column align-items-center mb-3'>
                         <h2 className='text-decoration-underline p-3'>Popular State Attractions</h2>
