@@ -1,7 +1,9 @@
 from flask import Flask
 from config import Config
 from .auth.routes import auth
-from .pics.routes import pics
+from .photos.routes import pics
+from .states.routes import states
+from .journals.routes import journal
 from .models import db
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -11,6 +13,8 @@ CORS(app)
 
 app.register_blueprint(auth)
 app.register_blueprint(pics)
+app.register_blueprint(states)
+app.register_blueprint(journal)
 
 app.config.from_object(Config)
 

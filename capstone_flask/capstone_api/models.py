@@ -2,6 +2,7 @@ from flask_login.mixins import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
 from secrets import token_hex
+from datetime import datetime
 
 from capstone_api.forms import statesForm
 
@@ -14,6 +15,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(150),nullable=False)
     email = db.Column(db.String(150),nullable=False, unique=True)
     password = db.Column(db.String(256),nullable=False)
+    date_added = db.Column(db.DateTime, nullable=True, default=datetime.utcnow())
     apitoken = db.Column(db.String,default=None, nullable=True)
 
     def __init__(self,first,last,email,password):
@@ -79,13 +81,10 @@ class State_Attractions(db.Model):
     attraction = db.Column(db.String(200))
     att_loc = db.Column(db.String(50))
 
-    
-
     def __init__(self,state_name,attraction,att_loc):
         self.state_name = state_name
         self.attraction = attraction
         self.att_loc = att_loc
-
 
     def to_dict(self):
         return {
@@ -99,8 +98,6 @@ class Popular_Activities(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     state_name = db.Column(db.String(25),db.ForeignKey('states.state'),nullable=False)
     activity = db.Column(db.String(300))
-
- 
 
     def __init__(self,state,activity):
         self.state_name = state
@@ -118,14 +115,80 @@ class visitedStates(db.Model):
     state_name = db.Column(db.String(25),db.ForeignKey('states.state'),nullable=False)
     user = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
 
+    def __init__(self,state,user):
+        self.state_name = state
+        self.user = user
+
     def to_dict(self):
         return {
-            self.user: self.state_name
+            'id': self.id,
+            'state': self.state_name
+        }
+
+class Journal(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.Text,nullable=False)
+    num_of_entries = db.Column(db.Text, default='0')
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    user = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
+
+    def __init__(self,title,user):
+        self.title = title
+        self.user = user
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'entries': self.num_of_entries,
+            'user': self.user
         }
 
 class journalEntries(db.Model):
-    trip = db.Column(db.Text,primary_key=True)
+    id = db.Column(db.Integer,primary_key=True)
     title = db.Column(db.Text, nullable=False)
     entry = db.Column(db.Text,nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    journal = db.Column(db.Integer,db.ForeignKey('journal.id'),nullable=False)
+
+    def __init__(self,title,entry,journal):
+        self.title = title
+        self.entry = entry
+        self.journal = journal
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'entry': self.entry,
+            'journal': self.journal
+        }
+
+class Albums(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.Text)
+    desc = db.Column(db.Text)
+    num_of_pics = db.Column(db.Text)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
+    journal = db.Column(db.Integer,db.ForeignKey('journal.id'),nullable=False)
+    
+    def __init__(self,title,desc,pics,user,journal):
+        self.title = title
+        self.desc = desc
+        self.num_of_pics = pics
+        self.user = user
+        self.journal = journal
+
+    def to_dict(self):
+        return {
+            'album': self.id,
+            'title': self.title,
+            'desc': self.desc,
+            'pics': self.num_of_pics,
+            'date': self.date_created,
+            'user': self.user,
+            'journal': self.journal
+        }
+        
 

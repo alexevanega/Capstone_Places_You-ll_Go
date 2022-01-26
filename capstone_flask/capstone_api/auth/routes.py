@@ -62,4 +62,4 @@ def register():
                     'message': f'Account successfully created for {first}'
                 }
             )
-    return {'status': 'error', 'message': 'Passwords do not match'}
+    return jsonify({'status': 'error', 'message': 'Passwords do not match'})
