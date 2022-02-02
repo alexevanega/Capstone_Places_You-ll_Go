@@ -27,31 +27,26 @@ def ReasonsAPI(state):
     reasons=Popular_Activities.query.filter_by(state_name=state).all()
     return jsonify([r.to_dict() for r in reasons])
 
-@states.route('/API/States/addvisited', methods=['POST'])
-def AddVisited():
+@states.route('/API/States/handlevisited', methods=['GET','POST'])
+def handleVisited():
     data = request.json
     print(data)
 
     state = data['state']
     user = data['user']
+    status = data['filler']
 
-    add = visitedStates(state,user)
-    db.session.add(add)
-    db.session.commit()
+    if status == 'red':
+        state_query = visitedStates.query.filter_by(state_name=state,user=user).first()
+        db.session.delete(state_query)
+        db.session.commit()
+        return jsonify({'status': 'success', 'message': 'visited state removed!'})
+    else:
+        add = visitedStates(state,user)
+        db.session.add(add)
+        db.session.commit()
+        return jsonify({'status': 'success', 'message': 'visited state added!'})
 
-    return jsonify({'status': 'success', 'message': 'visited state added!'})
-
-@states.route('/API/States/remove_visited', methods=['POST'])
-def RemoveVisited():
-    data = request.json
-    print(data)
-
-    state = data['state']
-    user = data['user']
-
-    remove = visitedStates.query.filter(and_(state_name=state,user=user))
-    db.session.delete(remove)
-    db.session.commit()
 
 @states.route('/API/States/get_visited_states/<user>')
 def GrabVisitedStates(user):

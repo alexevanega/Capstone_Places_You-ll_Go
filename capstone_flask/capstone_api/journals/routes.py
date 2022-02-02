@@ -5,19 +5,19 @@ from sqlalchemy import desc, and_
 import shutil
 import os
 
-from capstone_api.models import db, Journal, journalEntries, Albums
+from capstone_api.models import db,Journal,journalEntries,Albums
 
 journal = Blueprint('journal',__name__)
 
 @journal.route('/API/journals/<user>')
 def grabJournals(user):
-    journals = Journal.query.filter_by(user=user).order_by(desc(Journal.date_added)).all()
-    return jsonify([journ.to_dict() for journ in journals])
+    journals = Journal.query.filter_by(user=user).all()
+    return jsonify([journal.to_dict() for journal in journals])
 
-@journal.route('/API/journals/grab_entries/<journal>')
-def grabJournalEntries(journal):
-    entries = journalEntries.query.filter_by(journal=journal).order_by(desc(journalEntries.date_added)).all()
-    return jsonify([entry.to_dict() for entry in entries])
+@journal.route('/API/journals/grab_individual_journal/<journal>')
+def grabindividualJournal(journal):
+    journal = Journal.query.filter_by(id=journal).first()
+    return jsonify(journal.to_dict())
 
 @journal.route('/API/journals/create_journal',methods=['POST'])
 def createJournal():
@@ -30,12 +30,19 @@ def createJournal():
     db.session.commit()
     return jsonify({'status': 'success','message': 'Journal Created!'})
 
-@journal.route('/API/journals/add_entry/<journal>',methods=['GET','POST'])
-def addEntry(journal):
+@journal.route('/API/journals/add_entry',methods=['GET','POST'])
+def addEntry():
     data = request.form
     title = data['title']
     entry = data['entry']
-    jrnl = Journal.query.filter_by(journal=journal).first()
+    journal = data['journal']
+
+    print(title,entry,journal)
+    add = journalEntries(title,entry,journal)
+    db.session.add(add)
+    db.session.commit()
+
+    jrnl = Journal.query.filter_by(id=journal).first()
     entries = int(jrnl.num_of_entries)+1
 
     jrnl.id = jrnl.id
@@ -43,10 +50,6 @@ def addEntry(journal):
     jrnl.num_of_entries = entries
     jrnl.date_added = jrnl.date_added
     jrnl.user = jrnl.user
-
-    add = journalEntries(title,entry,journal)
-    db.session.add(add)
-    db.session.commit()
 
     return jsonify({'status': 'success', 'message': 'Entry Added'})
 
@@ -84,7 +87,7 @@ def editJournal(journal):
 @journal.route('/API/journals/delete_entry/<entry>',methods=['GET','POST'])
 def deleteEntry(entry):
     delete = journalEntries.query.filter_by(id=entry).first()
-    dcrs = Journal.query.filter_by(id=delete.id).first()
+    dcrs = Journal.query.filter_by(id=delete.journal).first()
     entries = int(dcrs.num_of_entries)-1
     
     dcrs.id = dcrs.id
@@ -108,7 +111,9 @@ def deleteJournal(journal):
     for entry in entries:
         db.session.delete(entry)
 
-    shutil.rmtree(os.path.join(app.config['UPLOAD_FOLDER'],delete.user,journal))
+    path = os.path.join(app.config['UPLOAD_FOLDER'],str(delete.user),journal)
+    if os.path.exists(path):
+            shutil.rmtree(path)
 
 
     db.session.delete(delete)

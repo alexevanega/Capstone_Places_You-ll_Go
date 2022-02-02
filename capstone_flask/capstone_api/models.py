@@ -17,6 +17,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(256),nullable=False)
     date_added = db.Column(db.DateTime, nullable=True, default=datetime.utcnow())
     apitoken = db.Column(db.String,default=None, nullable=True)
+    journals = db.relationship('Journal')
+    albums = db.relationship('Albums')
+    visited = db.relationship('visitedStates')
 
     def __init__(self,first,last,email,password):
         self.first_name = first
@@ -31,7 +34,10 @@ class User(db.Model, UserMixin):
             'email':self.email,
             'first': self.first_name,
             'last': self.last_name,
-            'token': self.apitoken
+            'token': self.apitoken,
+            'journals': [journal.to_dict() for journal in self.journals],
+            'albums': [album.to_dict() for album in self.albums],
+            'visited': [state.to_dict() for state in self.visited]
             }
 
 
@@ -45,8 +51,8 @@ class States(db.Model):
     timezone = db.Column(db.String(25))
     largest_city = db.Column(db.String(150))
     season = db.Column(db.String(10))
-    attractions = db.relationship('State_Attractions', backref='States')
-    reasons = db.relationship('Popular_Activities', backref='States')
+    attractions = db.relationship('State_Attractions')
+    reasons = db.relationship('Popular_Activities')
 
  
     def __init__(self,state,st_ab,nknm,flg,cap,pop,tmzn,lgcy,seasn):
@@ -71,7 +77,9 @@ class States(db.Model):
             'population': self.population,
             'timezone': self.timezone,
             'largest_city': self.largest_city,
-            'season': self.season
+            'season': self.season,
+            'attractions': [att.to_dict() for att in self.attractions],
+            'reasons': [rsn.to_dict() for rsn in self.reasons]
         }
 
 
@@ -112,7 +120,7 @@ class Popular_Activities(db.Model):
 
 class visitedStates(db.Model):
     id = db.Column(db.Integer,primary_key=True)
-    state_name = db.Column(db.String(25),db.ForeignKey('states.state'),nullable=False)
+    state_name = db.Column(db.String(25),nullable=False)
     user = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
 
     def __init__(self,state,user):
@@ -121,7 +129,6 @@ class visitedStates(db.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
             'state': self.state_name
         }
 
@@ -131,6 +138,9 @@ class Journal(db.Model):
     num_of_entries = db.Column(db.Text, default='0')
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
+    albums = db.relationship('Albums')
+    entries = db.relationship('journalEntries')
+
 
     def __init__(self,title,user):
         self.title = title
@@ -140,16 +150,17 @@ class Journal(db.Model):
         return {
             'id': self.id,
             'title': self.title,
-            'entries': self.num_of_entries,
-            'user': self.user
+            'date': self.date_added,
+            'albums': [album.to_dict() for album in self.albums],
+            'entries': [entry.to_dict() for entry in self.entries]
         }
 
 class journalEntries(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     title = db.Column(db.Text, nullable=False)
     entry = db.Column(db.Text,nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    journal = db.Column(db.Integer,db.ForeignKey('journal.id'),nullable=False)
+    journal = db.Column(db.Integer, db.ForeignKey('journal.id'),nullable=False)
 
     def __init__(self,title,entry,journal):
         self.title = title
@@ -161,8 +172,10 @@ class journalEntries(db.Model):
             'id': self.id,
             'title': self.title,
             'entry': self.entry,
+            'date': self.date_added,
             'journal': self.journal
         }
+
 
 class Albums(db.Model):
     id = db.Column(db.Integer,primary_key=True)

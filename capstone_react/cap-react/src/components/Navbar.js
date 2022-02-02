@@ -31,7 +31,7 @@ export default class Navbar extends Component {
                                                 <Link className="nav-link" to="/profile">Your Profile Page</Link>
                                             </li>
                                             <li className="nav-item">
-                                                <button className="nav-link btn btn-link" onClick={() => { this.props.logMeOut() }} >Log Out</button>
+                                                <Link to='/'><button className="nav-link btn btn-link" onClick={() => { this.props.logMeOut() }} >Log Out</button></Link>
                                             </li>
                                             <li className="nav-item">
                                                 <p className="nav-link" >Hello, {this.props.currentUser.first}</p>

@@ -1,52 +1,46 @@
 import React, { Component } from 'react';
-// import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 
 
 export default class Upload extends Component {
 
     state = {
-        selectedFile: null,
-        album: '',
-        user: this.props.user
+        selectedFile: null
     }
 
     imageSelectedHandler = event => {
         console.log(event.target.files[0]);
-        this.setState({selectedFile: event.target.files[0]});
+        this.setState({ selectedFile: event.target.files[0] });
     }
-
-    albumSelectedHandler = event => {
-        this.setState({album: event.target.value});
-    }
-
 
     fileUploadHandler = async (e) => {
-        console.log('sending file...', this.state)
+        e.preventDefault();
+        console.log('sending file...', this.state);
         const file = new FormData();
         file.append('image', this.state.selectedFile, this.state.selectedFile.name);
-        file.set('album',this.state.album);
-        file.set('user', this.state.user);
+        file.set('journal', this.props.journal);
+        file.set('album', this.props.album);
+        file.set('user', this.props.user);
 
-        fetch('http://127.0.0.1:5000/upload',
-        {
-            method: 'POST',
-            body: file
-        }
+        fetch('http://127.0.0.1:5000/API/pics/uploads',
+            {
+                method: 'POST',
+                body: file
+            }
         )
             .then((response) => response.json())
-            .then((result) => {console.log('success', result);});
+            .then((result) => { console.log('success', result); this.props.reRender()});
     }
 
     render() {
-        console.log(this.state)
+        const album = this.props.album
         return (
             <>
-            <input type='text' onChange={this.albumSelectedHandler} value={this.state.album} className='form-control'/>
-            <div className="input-group mb-3">
-                <input type="file" onChange={this.imageSelectedHandler} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-                <span className="input-group-text btn btn-primary" onClick={(e) => {this.fileUploadHandler(e)}} id="inputGroup-sizing-default">Upload</span>
-            </div>
+                <div className="input-group mb-3">
+                    <input type="file" onChange={this.imageSelectedHandler} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    <Link to={`/Album/${album}`}><span className="input-group-text btn btn-primary" onClick={(e) => { this.fileUploadHandler(e) }} id="inputGroup-sizing-default">Upload</span></Link>
+                </div>
             </>
         )
     }

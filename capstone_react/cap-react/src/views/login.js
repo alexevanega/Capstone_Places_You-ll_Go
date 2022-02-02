@@ -21,7 +21,7 @@ const Login = (props) => {
         const data = await res.json();
         console.log(data);
         if (data.status === 'success') {
-            props.logMeIn(data.data)
+            props.logMeIn(data.data);
             setRedirect('/profile')
         }
     }
