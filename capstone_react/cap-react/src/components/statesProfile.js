@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AttractionsList from './AttractionsList';
-import './statesProfile.css'
+import '../css/statesProfile.css'
 import { withParams } from '../hoc';
 import ReasonsList from './ReasonsList';
 import StateCard from './StateCard';

@@ -4,7 +4,7 @@ import AlbumItem from './AlbumItem';
 import EntryItem from './EntryItem';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './journalBadge.css'
+import '../css/journalBadge.css'
 
 const JournalBadge = (props) => {
     const journal = props.journal

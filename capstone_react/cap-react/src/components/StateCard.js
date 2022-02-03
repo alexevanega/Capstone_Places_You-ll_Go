@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './stateCard.css'
+import '../css/stateCard.css'
 
 export default class StateCard extends Component {
     render() {

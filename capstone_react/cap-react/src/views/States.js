@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import StateBadge from '../components/stateBadge'
 import StatesProfile from '../components/statesProfile';
-import './states.css'
+import '../css/states.css'
 
 export default class States extends Component {
 

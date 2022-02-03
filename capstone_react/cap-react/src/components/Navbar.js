@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { faHome, faFlagUsa, faPlaneDeparture, faIdCard, faUser, faUserAltSlash, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './Nav.css'
+import '../css/Nav.css'
 
 export default class Navbar extends Component {
     render() {

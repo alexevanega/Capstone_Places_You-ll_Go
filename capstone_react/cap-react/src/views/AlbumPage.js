@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import Upload from '../components/Upload';
 import Pic from '../components/Pic';
 import { withParams } from '../hoc';
-import './album.css'
+import '../css/album.css'
 
 class AlbumPage extends Component {
 

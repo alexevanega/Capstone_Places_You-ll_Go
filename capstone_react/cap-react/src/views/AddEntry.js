@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { withParams } from "../hoc";
-import './addEntry.css'
+import '../css/addEntry.css'
 
 const AddEntry = (props) => {
 

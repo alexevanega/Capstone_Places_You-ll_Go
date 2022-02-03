@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navigate } from 'react-router-dom';
 import { withParams } from '../hoc';
-import './CA.css'
+import '../css/CA.css'
 
 class CreateAlbums extends Component {
 

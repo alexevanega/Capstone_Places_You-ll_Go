@@ -5,7 +5,7 @@ import AlbumCard from '../components/AlbumCard';
 import EntryCard from '../components/EntryCard';
 import { faPlus, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './journalPage.css'
+import '../css/journalPage.css'
 
 class JournalPage extends Component {
 

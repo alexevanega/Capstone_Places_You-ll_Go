@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './stateBadge.css'
+import '../css/stateBadge.css'
 
 export default class StateBadge extends Component {
     render() {

@@ -4,7 +4,7 @@ import JournalBadge from '../components/JournalBadge';
 import ProfileBadge from '../components/ProfileBadge';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './profile.css'
+import '../css/profile.css'
 
 export default class Profile extends Component {
 

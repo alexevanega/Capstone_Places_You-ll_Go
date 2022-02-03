@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './map.css'; /* optional for styling like the :hover pseudo-class */
+import '../css/map.css'; /* optional for styling like the :hover pseudo-class */
 import USAMap from "react-usa-map";
 
 class Map extends Component {

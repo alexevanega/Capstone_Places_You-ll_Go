@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import './CJ.css'
+import '../css/CJ.css'
 
 const CreateJournal = (props) => {
     const [title, setTitle] = useState('')

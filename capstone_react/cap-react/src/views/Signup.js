@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import './Login.css'
+import '../css/Login.css'
 
 export default class Register extends Component {
     constructor(){

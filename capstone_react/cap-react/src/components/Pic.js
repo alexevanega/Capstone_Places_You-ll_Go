@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './singlepic.css';
+import '../css/singlepic.css';
 
 export default class Pic extends Component {
 

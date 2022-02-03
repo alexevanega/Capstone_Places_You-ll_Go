@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './albumCard.css'
+import '../css/albumCard.css'
 
 const AlbumCard = (props) => {
     const album = props.album;

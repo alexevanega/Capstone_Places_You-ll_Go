@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './profileBadge.css'
+import '../css/profileBadge.css'
 
 export default class ProfileBadge extends Component {
 
