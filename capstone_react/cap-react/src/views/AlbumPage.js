@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import Upload from '../components/Upload';
 import Pic from '../components/Pic';
 import { withParams } from '../hoc';
+import './album.css'
 
 class AlbumPage extends Component {
 
@@ -62,43 +63,48 @@ class AlbumPage extends Component {
     const user = this.props.user.id;
     const res = await fetch(`http://127.0.0.1:5000/API/pics/delete_album/${user}/${journal}/${album}`);
     const data = await res.json();
-    if (data.status==='success'){
-      this.setState({redirect: true})
+    if (data.status === 'success') {
+      this.setState({ redirect: true })
     };
   }
 
   render() {
     const album = this.state.album
     return (
-      this.state.redirect ? <Navigate to={`/journal/${this.props.params.journal}`}/>:
-      album ?
-        (
-          <>
-            <h1>{album.title}</h1>
-            {this.state.pic ? <Pic pic={this.state.pic} single={true} /> :
-              <div>
-                <span><h6>{album.date}</h6><h6>{this.state.pics.length}</h6></span>
-                <div>
-                  {this.state.add ?
-                    (
-                      <div className='col-5'>
-                        <Upload user={this.props.user.id} album={this.props.params.album} journal={this.props.params.journal} reRender={this.reRender} />
-                      </div>
-                    ) : (
-                      <button className='btn btn-primary' onClick={(e) => { this.addToAlbum(e) }}>+ Add To Album</button>
-                    )
-                  }
-                  <button className='btn btn-danger' onClick={(e)=>{ this.deleteAlbum(e) }} >Delete Album</button>
-                </div>
-                <div className='d-flex'>
-                  {this.loopThroughPics(this.state.pics)}
-                </div>
+      this.state.redirect ? <Navigate to={`/journal/${this.props.params.journal}`} /> :
+        album ?
+          (
+            <div className='album-page'>
+              <div className='album-header'>
+                <h1>{album.title}</h1>
               </div>
-            }
-          </>
-        ) : (
-          <h1>Loading...</h1>
-        )
+              {this.state.pic ? <Pic pic={this.state.pic} single={true} /> :
+                <div>
+                  <div className='album-header-info'>
+                    <h6>No. of Pics: {this.state.pics.length}</h6>
+                    <h6>Date Created: {album.date}</h6>
+                  </div>
+                  <div>
+                    {this.state.add ?
+                      (
+                        <div className='col-5 m-4'>
+                          <Upload user={this.props.user.id} album={this.props.params.album} journal={this.props.params.journal} reRender={this.reRender} />
+                        </div>
+                      ) : (
+                        <button className='album-btns btn btn-primary' onClick={(e) => { this.addToAlbum(e) }}>+ Add To Album</button>
+                      )
+                    }
+                    <button className='album-btns btn btn-danger' onClick={(e) => { this.deleteAlbum(e) }} >Delete Album</button>
+                  </div>
+                  <div className='book-of-pics d-flex justify-content-evenly'>
+                    {this.loopThroughPics(this.state.pics)}
+                  </div>
+                </div>
+              }
+            </div>
+          ) : (
+            <h1>Loading...</h1>
+          )
     )
   }
 }

@@ -37,8 +37,8 @@ export default class Upload extends Component {
         const album = this.props.album
         return (
             <>
-                <div className="input-group mb-3">
-                    <input type="file" onChange={this.imageSelectedHandler} className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                <div className="uplopad-bar input-group mb-3">
+                    <input type="file" onChange={this.imageSelectedHandler} className="form-control me-2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                     <Link to={`/Album/${album}`}><span className="input-group-text btn btn-primary" onClick={(e) => { this.fileUploadHandler(e) }} id="inputGroup-sizing-default">Upload</span></Link>
                 </div>
             </>

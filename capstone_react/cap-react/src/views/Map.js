@@ -207,6 +207,10 @@ class Map extends Component {
         return (
             this.state.fillers ?
             (<div className="App">
+                <div className='map-header'>
+                    <h1>Keep track of where you've been!</h1>
+                    <h4>Just click on any state you have visited.</h4>
+                </div>
                 <USAMap customize={this.statesCustomConfig()} onClick={this.mapHandler} />
             </div>)
             :

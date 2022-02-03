@@ -1,3 +1,21 @@
-.card-body {
-    color: black;
+.main-card {
+    border-radius: 10px;
+    width: 25%;
+    font-family: cursive;
+    background-color: #e3f2fd;
+}
+
+.card-mid {
+    height: 75%;
+}
+
+.card-img {
+    cursor: pointer;
+    width: 250px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.card-img:hover {
+    opacity: 0.3;
 }

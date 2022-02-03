@@ -18,21 +18,23 @@ class StatesProfile extends Component {
 
     render() {
         return (
-            <div className='d-flex flex-column mb-3'>
-                <div className='d-flex justify-content-evenly'>
+            <div className='state-profile'>
+                <div className='state-profile-main'>
                     <StateCard state={this.props.state} />
-                    <div className='atts d-flex flex-column align-items-center mb-3'>
+                </div>
+                <div className='state-profile-sect'>
+                    <div className='atts'>
                         <h2 className='text-decoration-underline p-3'>Popular State Attractions</h2>
                         <ol className='d-flex justify-content-space flex-wrap' id='atts'>
                             {this.loopThroughAtts(this.props.state.attractions)}
                         </ol>
                     </div>
-                </div>
-                <div className='rsns col-10 m-auto d-flex justify-content-between align-items-baseline'>
-                    <h2 className='text-decoration-underline d-flex'>Top 5 Reasons to Visit</h2>
-                    <ol className='d-flex col-9 justify-content-evenly' id='rsns'>
-                        {this.loopThroughRsns(this.props.state.reasons)}
-                    </ol>
+                    <div className='rsns'>
+                        <h2 className='text-decoration-underline d-flex'>Top 5 Reasons to Visit</h2>
+                        <ol className='rsn'>
+                            {this.loopThroughRsns(this.props.state.reasons)}
+                        </ol>
+                    </div>
                 </div>
             </div>
         )

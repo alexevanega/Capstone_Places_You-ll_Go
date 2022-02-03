@@ -1,0 +1,24 @@
+li.nav-item {
+    margin-left: 100px;
+    margin-right:100px;
+}
+
+.navbar-brand {
+    font-size: xx-large;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+.name {
+    text-transform: capitalize;
+    font-family: monospace;
+}
+
+.the-bar {
+    position: fixed;
+    width: 100%;
+    top: 0%;
+    margin-bottom: 25px;
+    z-index: 1;
+}
+

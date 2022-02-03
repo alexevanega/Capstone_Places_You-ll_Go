@@ -41,7 +41,7 @@ def addAlbum():
 
 @pics.route('/API/pics/edit_album/<album>',methods=['GET','POST'])
 def editAlbum(album):
-    edit = Albums.query.filter_by(album=album).first()
+    edit = Albums.query.filter_by(id=album).first()
     data = request.form
     title = data['title']
     desc = data['desc']
@@ -62,18 +62,18 @@ def editAlbum(album):
 
     return jsonify({'status': 'success','message': 'Album Edited'})
 
-@pics.route('/API/pics/delete_album/<user>/<journal>/<album>',methods=['GET','POST'])
-def deleteAlbum(user,journal,album):
-    album = Albums.query.filter_by(album=album).first()
+@pics.route('/API/pics/delete_album/<user>/<journal>/<album_id>',methods=['GET','POST'])
+def deleteAlbum(user,journal,album_id):
+    album = Albums.query.filter_by(id=album_id).first()
     db.session.delete(album)
     db.session.commit()
-    shutil.rmtree(os.path.join(app.config['UPLOAD_FOLDER'],user,journal,album))
+    shutil.rmtree(os.path.join(app.config['UPLOAD_FOLDER'],user,journal,album_id))
 
     return jsonify({'status':'success', 'message':'Album Deleted'})
 
 @pics.route('/API/pics/delete_photo/<user>/<journal>/<album>/<filename>',methods=['GET','POST'])
-def deletePhoto(user,journal,album,filename):
-    album = Albums.query.filter_by(album=album).first()
+def deletePhoto(user,journal,album_id,filename):
+    album = Albums.query.filter_by(id=album_id).first()
     pics = int(album.num_of_pics)-1
     album.id = album.id
     album.title = album.title
@@ -83,7 +83,7 @@ def deletePhoto(user,journal,album,filename):
     album.user = album.user
     album.journal = album.journal
     db.session.commit()
-    os.remove(os.path.join(app.config['UPLOAD_FOLDER'],user,journal,album,filename))
+    os.remove(os.path.join(app.config['UPLOAD_FOLDER'],user,journal,album_id,filename))
 
     return jsonify({'status': 'success', 'message': 'Photo Deleted'})
 

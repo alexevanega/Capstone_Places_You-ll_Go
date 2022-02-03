@@ -3,6 +3,9 @@ import { Link, Navigate } from 'react-router-dom';
 import { withParams } from '../hoc';
 import AlbumCard from '../components/AlbumCard';
 import EntryCard from '../components/EntryCard';
+import { faPlus, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './journalPage.css'
 
 class JournalPage extends Component {
 
@@ -23,7 +26,7 @@ class JournalPage extends Component {
   }
 
   reRender = () => {
-    this.setState({trigger: true})
+    this.setState({ trigger: true })
   }
 
   componentDidMount() {
@@ -33,7 +36,7 @@ class JournalPage extends Component {
   componentDidUpdate() {
     if (this.state.trigger !== false) {
       this.grabJournal()
-      this.setState({trigger: false})
+      this.setState({ trigger: false })
     }
   }
 
@@ -48,35 +51,63 @@ class JournalPage extends Component {
   delete = (e) => {
     e.preventDefault();
     const journal = this.props.params.journal;
-    this.setState({redirect: true});
-    this.props.deleteJournal(e,journal);
+    this.setState({ redirect: true });
+    this.props.deleteJournal(e, journal);
   }
-  
+
 
   render() {
     const journal = this.state.journal;
     return (
-      this.state.redirect ? <Navigate to={'/profile'}/>:
+      this.state.redirect ? <Navigate to={'/profile'} /> :
         journal ? (
-      <div>
-        <div>
-          <h1>{journal.title}</h1>
-          <button className='btn btn-link' onClick={(e) => { this.delete(e) }}>Delete Journal</button>
-          <Link to={`/Edit_journal/${journal.id}`}><p className='btn btn-link'>Edit Journal</p></Link>
-        </div>
-        <div>
-          <Link to={`/journal/${journal.id}/AddEntry`}><p>Add Entry</p></Link>
-          {this.loopThroughEntries(this.state.journal.entries)}
-        </div>
-        <div>
-          <Link to={`/Add_Album/${journal.id}`}><p>Create New Album</p></Link>
-          {this.loopThroughAlbums(this.state.journal.albums)}
-        </div>
-      </div>
-      ):(
-        <h1>loading...</h1>
-      )
-    
+          <div className='journalpage-main'>
+            <div className='journalpage-header'>
+              <h1 className='header-title' style={{textTransform:'capitalize'}}>{journal.title}</h1>
+              <div className='buttons-journalpage d-flex align-items-baseline'>
+              <button className='delete-journal m-2 ps-4 pe-4' onClick={(e) => { this.delete(e) }}>
+                <FontAwesomeIcon icon={faTrashAlt} />
+                </button>
+              <Link style={{color:'black',textDecoration:'none'}} to={`/Edit_journal/${journal.id}`}>
+                <div className='d-flex align-items-baseline m-2 ps-2'>
+                  <FontAwesomeIcon icon={faEdit} />
+                  <p>Edit Journal</p>
+                </div>
+                
+                </Link>
+              </div>
+            </div>
+            <div className='journalpage-contents'>
+
+              <div className='journalpage-entries col-5'>
+
+                {this.loopThroughEntries(this.state.journal.entries)}
+              </div>
+              <div className='secondary-stuff col-4'>
+                <div className='buttons'>
+                  <Link style={{ color: 'black' }} to={`/journal/${journal.id}/AddEntry`}>
+                    <div>
+                      <FontAwesomeIcon icon={faPlus} />
+                      <p>Add Entry</p>
+                    </div>
+                  </Link>
+                  <Link style={{ color: 'black' }} to={`/Add_Album/${journal.id}`}>
+                    <div>
+                      <FontAwesomeIcon icon={faPlus} />
+                      <p>Create New Album</p>
+                    </div>
+                  </Link>
+                </div>
+                <div className='journalpage-albums'>
+                  {this.loopThroughAlbums(this.state.journal.albums)}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <h1>loading...</h1>
+        )
+
     )
   }
 }

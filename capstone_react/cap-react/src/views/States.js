@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import StateBadge from '../components/stateBadge'
 import StatesProfile from '../components/statesProfile';
+import './states.css'
 
 export default class States extends Component {
 
@@ -23,12 +24,11 @@ export default class States extends Component {
     render() {
         return (
             this.state.profile ? <StatesProfile state={this.state.profile} />:
-            <>
-                <h1 className='text-decoration-underline d-flex justify-content-center'>Where Will You Go!</h1>
-                <div className='d-flex flex-wrap'>
+            <div className='master-states d-flex justify-content-center'>
+                <div className='states d-flex flex-wrap align-items-center justify-content-center col-10'>
                     {this.loopThroughStates(this.props.states)}
                 </div>
-            </>
+            </div>
         )
     }
 }

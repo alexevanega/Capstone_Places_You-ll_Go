@@ -1,0 +1,7 @@
+.badge-component {
+    border-radius: 10px;
+    background-color: whitesmoke;
+    margin: 8px;
+    padding: 5px;
+    border: 1px solid black;
+}

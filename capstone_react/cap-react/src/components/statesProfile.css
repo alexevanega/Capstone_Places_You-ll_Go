@@ -1,38 +1,64 @@
-.rsns {
-    border: 5px inset blue;
-    border-radius: 2%;
-    background-color: white;
-    color: black;
-    padding: 2%;
+.state-profile {
+    margin: auto;
+    padding-top: 100px;
+    padding-right: 50px;
+    display: flex;
+    align-items: space-between;
 }
 
-.rsn div{
+.state-profile-main {
+    width: 45%;
+    height: 100vh;
+    float :left;
+}
+
+.state-profile-sect {
+    width: 45%;
+    height: 100vh;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 20px;
+    font-family: cursive;
+}
+
+
+.rsns {
+    border-radius: 10px;
+    background-color: #e3f2fd;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rsn {
     background-color: inherit;
     color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    list-style-type: none;
 }
 
 .atts {
-    background-color: white;
-    border: 5px inset red;
-    border-radius: 2%;
+    background-color: #e3f2fd;
+    border-radius: 10px;
     color: black;
-    margin-top: 3%;
-    padding: 2%;
-    width: 50%;
+    text-align: center;
+
 }
 
 .attract {
     background-color: inherit;
     color: black;
-    margin: 2%;
     text-align: center;
 }
 
 .state {
-    border: 5px inset silver;
-    border-radius: 2%;
-    padding: 2%;
-    margin: 2%;
+    border: 5px solid black;
+
 }
 
 .flag img{

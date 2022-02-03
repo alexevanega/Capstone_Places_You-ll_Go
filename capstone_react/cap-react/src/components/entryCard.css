@@ -1,0 +1,21 @@
+.entry-main {
+    background-color: #e3f2fd;
+    border-radius: 10px;
+}
+
+.entry-header {
+    border-bottom: 2px solid black;
+}
+
+.entry-body {
+    background-color: whitesmoke;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 4px;
+}
+
+.entry-buttons {
+    display: flex;
+    justify-content: space-around;
+}

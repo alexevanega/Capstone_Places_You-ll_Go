@@ -1,0 +1,13 @@
+.item {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: whitesmoke;    
+}
+
+.item-header {
+    font-size: x-large;
+}
+
+.item-subline {
+    font-size: x-small;
+}

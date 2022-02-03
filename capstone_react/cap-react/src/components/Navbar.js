@@ -1,67 +1,84 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { faHome, faFlagUsa, faPlaneDeparture, faIdCard, faUser, faUserAltSlash, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import './Nav.css'
 
 export default class Navbar extends Component {
     render() {
         return (
-            <div>
-                <nav className="navbar navbar-expand-lg navbar-primary bg-dark">
+            <div className='the-bar'>
+                <nav className="navbar navbar-expand-lg navbar-light" style={{ background: '#e3f2fd' }}>
                     <div className="container-fluid">
-                        <a className="navbar-brand" href="/">The Places You'll Go!</a>
+                        <h1 className="navbar-brand" href="/">The Places You'll Go!</h1>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <ul className="navbar-nav d-flex align-items-baseline m-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/">What We Do</Link>
+                                    <Link className="nav-link" to="/">
+                                        <FontAwesomeIcon icon={faHome} size='3x' />
+                                    </Link>
                                 </li>
-
 
                                 {
                                     this.props.isLoggedIn ? (
                                         <>
                                             <li className="nav-item">
-                                                <Link className="nav-link" to="/Map">View Your Map</Link>
+                                                <Link className="nav-link" to="/Map">
+                                                    <FontAwesomeIcon icon={faFlagUsa} size='3x' />
+                                                </Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link className="nav-link active" aria-current="page" to="/plan">Plan Your Next Trip</Link>
+                                                <Link className="nav-link" to="/plan">
+                                                    <FontAwesomeIcon icon={faPlaneDeparture} size='3x' />
+                                                </Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link className="nav-link" to="/profile">Your Profile Page</Link>
+                                                <Link className="nav-link" to="/profile">
+                                                    <FontAwesomeIcon icon={faIdCard} size='3x' />
+                                                </Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link to='/'><button className="nav-link btn btn-link" onClick={() => { this.props.logMeOut() }} >Log Out</button></Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <p className="nav-link" >Hello, {this.props.currentUser.first}</p>
+                                                <Link to='/'><button className="nav-link btn btn-link" onClick={() => { this.props.logMeOut() }} >
+                                                    <FontAwesomeIcon icon={faUserAltSlash} size='3x' />
+                                                </button></Link>
                                             </li>
                                         </>
                                     ) : (
                                         <>
                                             <li className="nav-item">
-                                                <Link className="nav-link" to="/Map">The Map</Link>
+                                                <Link className="nav-link" to="/Map">
+                                                    <FontAwesomeIcon icon={faFlagUsa} size='3x' />
+                                                </Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link className="nav-link active" aria-current="page" to="/plan">Where Will You Go?</Link>
+                                                <Link className="nav-link active" aria-current="page" to="/plan">
+                                                    <FontAwesomeIcon icon={faPlaneDeparture} size='3x' />
+                                                </Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link className="nav-link" to="/login">Log In</Link>
+                                                <Link className="nav-link" to="/login">
+                                                    <FontAwesomeIcon icon={faUser} size='3x' />
+                                                </Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link className="nav-link" to="/Signup">Register</Link>
+                                                <Link className="nav-link" to="/Signup">
+                                                    <FontAwesomeIcon icon={faUserPlus} size='3x' />
+                                                </Link>
                                             </li>
                                         </>
                                     )
                                 }
 
-
-
                             </ul>
-                            <form className="d-flex">
-                                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                <button className="btn btn-outline-success" type="submit">Search</button>
-                            </form>
+                            {this.props.isLoggedIn ? (
+                                <h4 className="name nav-item" >Hello, {this.props.currentUser.first}</h4>
+                            ):(
+                                <h4 className='name nav-item' >Your Journey Awaits</h4>
+                            )}
+                            
                         </div>
                     </div>
                 </nav>

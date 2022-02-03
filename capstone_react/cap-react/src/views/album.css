@@ -1,0 +1,32 @@
+.album-page {
+    margin:auto;
+    margin-top: 100px;
+    width: 95%;
+}
+
+.album-header {
+    background-color: #e3f2fd;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    color: black;
+    text-transform: capitalize;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.album-header-info {
+    color: black;
+    display: flex;
+    justify-content: space-around;
+    background-color: #e3f2fd;
+    border-radius: 5px;
+
+}
+
+.book-of-pics {
+    margin-top: 25px;
+}
+
+.album-btns {
+    margin: 10px;
+}

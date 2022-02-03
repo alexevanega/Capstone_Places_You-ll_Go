@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './entryCard.css'
 
 const EntryCard = (props) => {
     const entry = props.entry;
@@ -12,19 +15,30 @@ const EntryCard = (props) => {
         props.reRender();
     }
 
-        return (
-            <>
-                <div className="card" style={{width: "18rem"}}>
-                    <div className="card-body">
-                        <h5 className="card-title">{entry.title}</h5>
-                        <h6 className="card-subtitle mb-2 text-muted">{entry.date}</h6>
-                        <p className="card-text">{entry.entry}</p>
-                        <Link to={`/EditEntry/${entry.id}`}><button className="btn btn-link">Edit Entry</button></Link>
-                        <button onClick={(e) => {deleteEntry(e)}} className="btn btn-link">Delete Entry</button>
-                    </div>
+    return (
+        <>
+            <div className="entry-main card-body col-11">
+                <div className='entry-header'>
+                    <h4 className="card-title">{entry.title}</h4>
+                    <h6 className="card-subtitle mb-2 text-muted">Date Entered: {entry.date}</h6>
                 </div>
-            </>
-        )
+                <div className='entry-body'>
+                    <p className="card-text">{entry.entry}</p>
+                </div>
+                <div className='entry-buttons'>
+                    <Link style={{ color: 'black' }} to={`/EditEntry/${entry.id}`}>
+                        <div>
+                            <FontAwesomeIcon icon={faEdit} />
+                            <button className="delete-journal">Edit Entry</button>
+                        </div>
+                    </Link>
+                    <button onClick={(e) => { deleteEntry(e) }} className="delete-journal">
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                    </button>
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default EntryCard

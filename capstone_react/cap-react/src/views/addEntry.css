@@ -1,0 +1,27 @@
+.addentry-main {
+    margin: auto;
+    margin-top: 140px;
+    padding-top: 50px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #e3f2fd;
+    height: 80vh;
+    width: 45%;
+    font-family: cursive;
+    text-decoration: underline;
+}
+
+.addentry-forms-container {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 75%;
+    margin: auto;
+    height: 75%;
+    background-color: whitesmoke;
+}
+
+.addentry-forms {
+    width: 75%;
+    margin: auto;
+    margin-top: 50px;
+}

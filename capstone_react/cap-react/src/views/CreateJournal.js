@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import './CJ.css'
 
 const CreateJournal = (props) => {
     const [title, setTitle] = useState('')
@@ -18,24 +19,29 @@ const CreateJournal = (props) => {
             }
         )
             .then((response) => response.json())
-            .then((result) => { console.log('success', result);props.reRender(); setRedirect('/profile') });
+            .then((result) => { console.log('success', result); props.reRender(); setRedirect('/profile') });
     }
 
-        return (
-            redirect ? <Navigate to='/profile' /> :
+    return (
+        redirect ? <Navigate to='/profile' /> :
+            <div className='cj-main'>
                 <div>
-                    <form onSubmit={(e) => { createJournal(e) }}>
-                        <div className="form-group">
-                            <fieldset>
-                                <label>Title</label>
-                                <input className="form-control" id="title" name="title" onChange={e => setTitle(e.target.value)} placeholder="Journal Title" required="" type="text" />
-                            </fieldset>
-                            <input className="btn btn-primary" id="submit" name="submit" type="submit" value="Submit" />
-                        </div>
-                    </form>
+                    <h1 id='cj-header'>Create Journal</h1>
                 </div>
-        )
-    
+                <div className='cj-container'>
+                <div className='form-box d-flex flex-column align-items-center'>
+                        
+                            <fieldset className='d-flex flex-column m-2 p-2 col-8'>
+                                <label id='cj-label'>What would you like to call this journal?</label>
+                                <input className="cj-input form-control border border-dark col-10" id="title" name="title" onChange={e => setTitle(e.target.value)} placeholder="Journal Title" required="" type="text" />
+                            </fieldset>
+                            <input className="col-6 btn btn-primary border border-dark" onClick={(e) => { createJournal(e) }} id="submit" name="submit" type="submit" value="Submit" />
+
+                </div>
+                </div>
+            </div>
+    )
+
 }
 
 export default CreateJournal

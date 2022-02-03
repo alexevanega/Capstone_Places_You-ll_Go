@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './profileBadge.css'
 
 export default class ProfileBadge extends Component {
 
@@ -15,7 +16,7 @@ export default class ProfileBadge extends Component {
         const vs = this.props.user.visited
         return (
             <>
-                <div>
+                <div className='badge-component col-8'>
                     <h1>{user.first} {user.last}</h1>
                     <h5>You have visited {this.sum(vs)}/50 states!</h5>
                 </div>

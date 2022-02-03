@@ -1,0 +1,32 @@
+.state-card-shell {
+    font-family: cursive;
+}
+
+.state-card-main {
+    width: 60%;
+    height: 550px;
+    margin: auto;
+    border-radius: 10px;
+    background-color: #e3f2fd;
+}
+
+.flag {
+    height: 45%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.badge-img {
+    width:250px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.state-attr {
+    height: 55%;
+}
+
+.state-info {
+    column-gap: 10px;
+}

@@ -31,19 +31,18 @@ export default class Pic extends Component {
 
     render() {
         return (
-            <div>
-                {this.props.single ?
-                    (
-                        <div className='w-75 h-75'>
-                            <button type="button" className="btn-close" aria-label="Close"></button>
-                            <img id='singlepic' src={this.props.pic} onLoad={() => { URL.revokeObjectURL(this.src) }} alt={this.props.pic} />
-                        </div>
-
-                    ) : (
+            this.props.single ?
+                (
+                    <div className='pic'>
+                        <span><button id='close' type="button" className="btn-close" aria-label="Close"></button></span>
+                        <img className='model-content img-fluid' id='singlepic' src={this.props.pic} onLoad={() => { URL.revokeObjectURL(this.src) }} alt={this.props.pic} />
+                    </div>
+                ) : (
+                    <div className='picCard'>
                         <img id='pic' src={this.state.img} width={250} onClick={(e) => this.props.showPic(e, this.state.img)} height={250} onLoad={() => { URL.revokeObjectURL(this.src) }} alt={this.props.pic} />
-                    )
-                }
-            </div>
+                    </div>
+                )
+
         )
     }
 }

@@ -1,2 +1,6 @@
 
+body {
+    background-image: url('./assets/travel-postcards.jpg');
+    background-size: cover;    
+}
 

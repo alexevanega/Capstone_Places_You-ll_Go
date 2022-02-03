@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import JournalBadge from '../components/JournalBadge';
 import ProfileBadge from '../components/ProfileBadge';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './profile.css'
 
 export default class Profile extends Component {
 
@@ -12,15 +15,20 @@ export default class Profile extends Component {
 
     render() {
         return (
-            <>
-                <div>
+            <div className='profile-main'>
+                <div className='profile-badge'>
                     <ProfileBadge user={this.props.user} />
-                <Link to={'/Create_Journal'}><h6>Create New Journal</h6></Link>
+                    <Link to={'/Create_Journal'}>
+                        <button className='delete-profile'>
+                            <FontAwesomeIcon icon={faPlus} />
+                            <p>Create Journal</p>
+                        </button>
+                    </Link>
                 </div>
-                <div>
+                <div className='jrnls'>
                     {this.loopThroughJournals(this.props.journals)}
                 </div>
-            </>
+            </div>
         )
     }
 }

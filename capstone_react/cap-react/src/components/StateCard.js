@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
+import './stateCard.css'
 
 export default class StateCard extends Component {
     render() {
         const state = this.props.state
         
         return (
-            <>
-                <div className="state card d-flex flex-column align-items-center" style={{ width: "25rem" }}>
-                    <div>
+            <div className='state-card-shell'>
+                <div className="state-card-main card">
                         <div className="flag">
-                            <img src={state.flag} style={{ width: "20rem" }} className="img-fluid rounded-3" alt="..." />
+                            <img src={state.flag} className="badge-img" alt={state.abbr} />
                         </div>
-                        <div className="d-flex flex-column align-items-center">
+                        <div className="state-attr d-flex flex-column align-items-center">
                             <h5 className="card-title">{state.name}</h5>
-                            <div className="card-body d-flex flex-wrap justify-content-center">
+                            <div className="state-info card-body d-flex flex-wrap justify-content-center">
                                 <p className="card-text">Abbreviation: {state.abbr}</p>
                                 <p className="card-text">Nickname: {state.nickname}</p>
                                 <p className="card-text">Capitol: {state.capital}</p>
@@ -23,10 +23,9 @@ export default class StateCard extends Component {
                                 <p className="card-text">Best Season to Visit: {state.season}</p>
                             </div>
                         </div>
-                    </div>
                 </div>
                 
-            </>
+            </div>
         )
     }
 }

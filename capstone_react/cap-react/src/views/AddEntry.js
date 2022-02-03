@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { withParams } from "../hoc";
+import './addEntry.css'
 
 const AddEntry = (props) => {
 
@@ -30,23 +31,26 @@ const AddEntry = (props) => {
             }
         )
             .then((response) => response.json())
-            .then((result) => { console.log('success', result);props.reRender();setRedirect(true) });
+            .then((result) => { console.log('success', result); props.reRender(); setRedirect(true) });
     }
     return (
-        redirect ? <Navigate to={`/journal/${props.params.journal}`} />:
-        <>
-            <form onSubmit={(e)=>{AddEntry(e)}}>
-                <div className="mb-3">
-                    <label className="form-label">Entry Title</label>
-                    <input type="text" className="form-control" onChange={(e)=>{handleTitle(e)}} id="exampleFormControlInput1" placeholder="Add Entry Title..." />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Journal Entry</label>
-                    <textarea className="form-control" onChange={(e)=>{handleEntry(e)}} id="exampleFormControlTextarea1" rows="8"></textarea>
-                </div>
-                <input className="btn btn-primary" id="submit" name="submit" type="submit" value="Submit" />
-            </form>
-        </>
+        redirect ? <Navigate to={`/journal/${props.params.journal}`} /> :
+            <div className="addentry-main">
+                <h1>Add Entry</h1>
+                <form className="addentry-forms-container" onSubmit={(e) => { AddEntry(e) }}>
+                    <div className="addentry-forms">
+                        <div className="mb-3">
+                            <label className="form-label">Entry Title</label>
+                            <input type="text" className="form-control" onChange={(e) => { handleTitle(e) }} id="exampleFormControlInput1" />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Journal Entry</label>
+                            <textarea className="form-control" onChange={(e) => { handleEntry(e) }} id="exampleFormControlTextarea1" rows="8"></textarea>
+                        </div>
+                    </div>
+                    <input className="btn btn-primary" id="submit" name="submit" type="submit" value="Submit" />
+                </form>
+            </div>
     )
 }
 export default withParams(AddEntry);
