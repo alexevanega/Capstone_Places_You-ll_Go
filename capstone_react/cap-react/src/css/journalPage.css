@@ -8,7 +8,9 @@
 }
 
 .journalpage-header {
-    background-color: #e3f2fd;
+    background-color: navajowhite;
+    width: 95%;
+    margin: auto;
     border-radius: 10px;
     padding: 10px;
 
@@ -41,7 +43,7 @@
 }
 
 .journalpage-albums {
-    background-color: #e3f2fd;
+    background-color: navajowhite;
     border-radius: 10px;
     display: flex;
     justify-content: space-around;
@@ -49,7 +51,7 @@
 }
 
 .buttons {
-    background-color: #e3f2fd;
+    background-color: navajowhite;
     border-radius: 10px;
     padding: 5px;
     display: flex;

@@ -26,7 +26,7 @@
 
 .rsns {
     border-radius: 10px;
-    background-color: #e3f2fd;
+    background-color: navajowhite;
     color: black;
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@
 }
 
 .atts {
-    background-color: #e3f2fd;
+    background-color: navajowhite;
     border-radius: 10px;
     color: black;
     text-align: center;
